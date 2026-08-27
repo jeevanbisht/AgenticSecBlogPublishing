@@ -1,0 +1,92 @@
+---
+interface Props {
+  body: string;
+}
+
+type Block =
+  | { type: "heading"; level: 2 | 3; text: string }
+  | { type: "paragraph"; text: string }
+  | { type: "list"; items: string[] }
+  | { type: "table"; headers: string[]; rows: string[][] };
+
+const { body } = Astro.props;
+const lines = body.replaceAll("\r\n", "\n").split("\n");
+const blocks: Block[] = [];
+let paragraph: string[] = [];
+
+const flushParagraph = () => {
+  if (paragraph.length) {
+    blocks.push({ type: "paragraph", text: paragraph.join(" ") });
+    paragraph = [];
+  }
+};
+
+for (let index = 0; index < lines.length;) {
+  const line = lines[index].trim();
+  if (!line) {
+    flushParagraph();
+    index += 1;
+    continue;
+  }
+  if (line.startsWith("### ")) {
+    flushParagraph();
+    blocks.push({ type: "heading", level: 3, text: line.slice(4) });
+    index += 1;
+    continue;
+  }
+  if (line.startsWith("## ")) {
+    flushParagraph();
+    blocks.push({ type: "heading", level: 2, text: line.slice(3) });
+    index += 1;
+    continue;
+  }
+  if (line.startsWith("- ")) {
+    flushParagraph();
+    const items: string[] = [];
+    while (index < lines.length && lines[index].trim().startsWith("- ")) {
+      items.push(lines[index].trim().slice(2));
+      index += 1;
+    }
+    blocks.push({ type: "list", items });
+    continue;
+  }
+  if (line.startsWith("|") && index + 1 < lines.length && /^\|[\s|:-]+\|$/.test(lines[index + 1].trim())) {
+    flushParagraph();
+    const cells = (value: string) => value.slice(1, -1).split("|").map((cell) => cell.trim());
+    const headers = cells(line);
+    const rows: string[][] = [];
+    index += 2;
+    while (index < lines.length && lines[index].trim().startsWith("|")) {
+      rows.push(cells(lines[index].trim()));
+      index += 1;
+    }
+    blocks.push({ type: "table", headers, rows });
+    continue;
+  }
+  paragraph.push(line);
+  index += 1;
+}
+flushParagraph();
+---
+
+<div class="article-body">
+  {blocks.map((block) => {
+    if (block.type === "heading") {
+      return block.level === 2 ? <h2>{block.text}</h2> : <h3>{block.text}</h3>;
+    }
+    if (block.type === "paragraph") {
+      return <p>{block.text}</p>;
+    }
+    if (block.type === "list") {
+      return <ul>{block.items.map((item) => <li>{item}</li>)}</ul>;
+    }
+    return (
+      <div class="table-wrap">
+        <table>
+          <thead><tr>{block.headers.map((header) => <th>{header}</th>)}</tr></thead>
+          <tbody>{block.rows.map((row) => <tr>{row.map((cell) => <td>{cell}</td>)}</tr>)}</tbody>
+        </table>
+      </div>
+    );
+  })}
+</div>

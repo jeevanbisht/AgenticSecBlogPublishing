@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleBody from "../../components/ArticleBody.astro";
 import data from "../../data/ledger";
 
 export function getStaticPaths() {
@@ -12,7 +13,12 @@ const { article } = Astro.props;
 ---
 
 <BaseLayout title={`${article.title} | ASI`} description="Human-reviewed, evidence-backed agentic security analysis.">
-  <p class="eyebrow">Evidence-backed analysis</p>
-  <h1>{article.title}</h1>
-  <pre>{article.body}</pre>
+  <article class="article-shell">
+    <header class="article-header">
+      <p class="eyebrow">Evidence-backed analysis</p>
+      <h1>{article.title}</h1>
+      <p class="lede">Human-confirmed intelligence grounded in canonical source evidence.</p>
+    </header>
+    <ArticleBody body={article.body} />
+  </article>
 </BaseLayout>

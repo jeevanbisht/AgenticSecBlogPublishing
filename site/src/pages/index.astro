@@ -4,50 +4,129 @@ import data from "../data/ledger";
 import type { Change, Conflict } from "../data/types";
 
 const recent = (data.changes as Change[]).slice(0, 4);
+const featured = data.articles[0];
 const conflicts = data.systems.flatMap((system) =>
   (system.conflicts as Conflict[]).map((conflict) => ({ system: system.name, ...conflict })),
 );
 ---
 
 <BaseLayout title="Agentic Security Intelligence" description="Evidence-driven intelligence on enterprise security agents.">
-  <p class="eyebrow">Evidence · autonomy · control · change</p>
-  <h1>Security-agent claims, tested against the record.</h1>
-  <p class="lede">
-    Track what enterprise security agents can do, how independently they act, what controls
-    constrain them, and how the evidence changes over time.
-  </p>
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Evidence · autonomy · control · change</p>
+      <h1>Security-agent claims, tested against the record.</h1>
+      <p class="lede">
+        Decision intelligence for enterprise security teams evaluating agentic systems,
+        grounded in canonical evidence and confirmed by human review.
+      </p>
+      <div class="hero-actions">
+        {featured && <a class="button primary" href={`/articles/${featured.id.toLowerCase()}/`}>Read the latest analysis</a>}
+        <a class="button" href="/claims-vs-reality/">Explore claims vs evidence</a>
+      </div>
+    </div>
+    <aside class="signal-panel" aria-label="Current intelligence status">
+      <p class="signal-label"><span></span> Live intelligence ledger</p>
+      <div class="metric-grid">
+        <div><strong>{data.systems.length}</strong><span>systems tracked</span></div>
+        <div><strong>{data.changes.length}</strong><span>confirmed changes</span></div>
+        <div><strong>{data.claims.length}</strong><span>capability claims</span></div>
+        <div><strong>{data.articles.length}</strong><span>published analyses</span></div>
+      </div>
+      <dl class="signal-meta">
+        <div><dt>Methodology</dt><dd>{data.methodology_version}</dd></div>
+        <div><dt>Taxonomy</dt><dd>{data.taxonomy_version}</dd></div>
+        <div><dt>Updated</dt><dd>{data.generated_at.slice(0, 10)}</dd></div>
+      </dl>
+    </aside>
+  </section>
 
-  <h2>What changed</h2>
-  <div class="grid">
-    {recent.map((change) => (
-      <article class="card">
-        <p class="eyebrow">{change.classification}</p>
-        <h3>{change.description}</h3>
-        <p class="meta">{change.date}</p>
-        <div>{change.decision_impacts.map((impact) => <span class="tag impact">{impact}</span>)}</div>
-      </article>
-    ))}
-  </div>
+  {featured && (
+    <section class="featured-analysis">
+      <div>
+        <p class="eyebrow">Latest evidence-backed analysis</p>
+        <h2>{featured.title}</h2>
+        <p>
+          Agentic security is evolving into a control-plane problem: specialized agents,
+          orchestration, model routing, evidence-producing validation, and governed action.
+        </p>
+        <a class="text-link" href={`/articles/${featured.id.toLowerCase()}/`}>Read the full analysis <span>→</span></a>
+      </div>
+      <div class="control-plane-visual" aria-hidden="true">
+        <span class="node red">RED</span>
+        <span class="node blue">BLUE</span>
+        <span class="node green">GREEN</span>
+        <span class="hub">CONTROL<br />PLANE</span>
+        <i class="line one"></i><i class="line two"></i><i class="line three"></i>
+      </div>
+    </section>
+  )}
 
-  <h2>Systems tracked</h2>
-  <div class="grid">
-    {data.systems.map((system) => (
-      <article class="card">
-        <p class="eyebrow">{system.vendor}</p>
-        <h3><a href={`/systems/${system.id}/`}>{system.name}</a></h3>
-        <p>{system.description}</p>
-        <p class="meta">{system.capabilities.length} capability assertions · {system.freshness}</p>
-      </article>
-    ))}
-  </div>
+  <section>
+    <div class="section-heading">
+      <div><p class="eyebrow">Confirmed intelligence</p><h2>What changed</h2></div>
+      <a href="/changes/">View all changes →</a>
+    </div>
+    <div class="grid changes-grid">
+      {recent.map((change, index) => (
+        <article class="card change-card">
+          <div class="card-index">{String(index + 1).padStart(2, "0")}</div>
+          <p class="eyebrow">{change.classification.replaceAll("_", " ")}</p>
+          <h3>{change.description}</h3>
+          <p class="meta">{change.date}</p>
+          <div>{change.decision_impacts.map((impact) => <span class="tag impact">{impact}</span>)}</div>
+        </article>
+      ))}
+    </div>
+  </section>
 
-  <h2>Evidence conflicts</h2>
-  {conflicts.length ? conflicts.map((conflict) => (
-    <article class="card"><strong>{conflict.system}</strong><p>{conflict.rationale}</p></article>
-  )) : <p>No open conflicts in the current public projection.</p>}
+  <section>
+    <div class="section-heading">
+      <div><p class="eyebrow">Coverage</p><h2>Systems tracked</h2></div>
+      <a href="/systems/">Compare systems →</a>
+    </div>
+    <div class="grid">
+      {data.systems.map((system) => (
+        <article class="card system-card">
+          <div class="system-mark">{system.name.slice(0, 2).toUpperCase()}</div>
+          <div>
+            <p class="eyebrow">{system.vendor}</p>
+            <h3><a href={`/systems/${system.id}/`}>{system.name}</a></h3>
+            <p>{system.description}</p>
+            <p class="meta">{system.capabilities.length} capability assertions · {system.freshness}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
 
-  <h2>Latest weekly analysis</h2>
-  {data.weekly.length
-    ? <p><a href={`/weekly/${data.weekly[0].date}/`}>Weekly evidence pack — {data.weekly[0].date}</a></p>
-    : <p>No weekly evidence pack has been projected.</p>}
+  <section class="trust-strip">
+    <p class="eyebrow">How ASI earns trust</p>
+    <h2>Evidence in. Human judgment. Verified publication out.</h2>
+    <div class="pipeline">
+      <div><b>01</b><strong>Collect</strong><span>Governed primary sources</span></div>
+      <i>→</i>
+      <div><b>02</b><strong>Ground</strong><span>Verbatim evidence anchors</span></div>
+      <i>→</i>
+      <div><b>03</b><strong>Review</strong><span>Mandatory human decision</span></div>
+      <i>→</i>
+      <div><b>04</b><strong>Publish</strong><span>Validated public projection</span></div>
+    </div>
+  </section>
+
+  <section class="lower-grid">
+    <div class="card">
+      <p class="eyebrow">Evidence health</p>
+      <h2>Open conflicts</h2>
+      {conflicts.length ? conflicts.map((conflict) => (
+        <article><strong>{conflict.system}</strong><p>{conflict.rationale}</p></article>
+      )) : <p class="good-status"><span>✓</span> No open conflicts in the current public projection.</p>}
+    </div>
+    <div class="card">
+      <p class="eyebrow">Research cadence</p>
+      <h2>Latest weekly analysis</h2>
+      {data.weekly.length
+        ? <p><a class="text-link" href={`/weekly/${data.weekly[0].date}/`}>Evidence pack · {data.weekly[0].date} <span>→</span></a></p>
+        : <p>No weekly evidence pack has been projected.</p>}
+    </div>
+  </section>
 </BaseLayout>
