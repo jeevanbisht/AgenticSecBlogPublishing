@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import data from "../../data/ledger";
+---
+
+<BaseLayout title="Evidence-backed analysis | ASI" description="Human-reviewed analysis grounded in the ASI evidence ledger.">
+  <p class="eyebrow">Human-reviewed intelligence</p>
+  <h1>Analysis</h1>
+  {data.articles.length === 0 ? (
+    <p>No evidence-backed articles have been published.</p>
+  ) : (
+    <ul>
+      {data.articles.map((article) => (
+        <li><a href={`/articles/${article.id.toLowerCase()}/`}>{article.title}</a></li>
+      ))}
+    </ul>
+  )}
+</BaseLayout>
