@@ -1,12 +1,1088 @@
 {
+  "articles": [
+    {
+      "body": "## Executive summary\n\nAgentic security is not converging on a single all-purpose assistant. The confirmed evidence instead points to a control-plane pattern: specialized agents divide work, orchestration coordinates them, multiple models contribute distinct reasoning, and human approval remains the boundary for high-impact action.\n\nProject Perception makes that pattern explicit across red, blue, and green security roles. Microsoft AI Code Security applies a related pattern inside software security, using a staged pipeline, more than 100 specialized scanning agents, validation mechanisms, and a path from findings to code fixes. Together, these systems establish a direction of travel. They do not yet establish production effectiveness.\n\n## Thesis\n\nThe important architectural shift is not merely \u201csecurity with AI.\u201d It is the emergence of an agent control plane that coordinates role-specialized workers, model selection, evidence-producing validation, and governed action.\n\nThat control plane is becoming the unit enterprise teams will need to evaluate. Individual model quality still matters, but it is no longer sufficient. Buyers and defenders also need to understand orchestration reliability, action authorization, auditability, failure containment, and whether claimed outcomes have been independently reproduced.\n\n## What the evidence establishes\n\n### Project Perception\n\nMicrosoft documents three specialized agents spanning the attack lifecycle and says they share intelligence through orchestrated workflows. It also describes an orchestration harness as the framework, tools, and controls that coordinate agents and models for reliable operation, testing, and guidance.\n\nThe autonomy boundary is equally important. The confirmed, human-scoped assertion is that agents carry work execution while judgment remains with humans. Microsoft explicitly documents defender-set objectives and guardrails and says every high-impact action remains under human sign-off.\n\nThe system is in preview, initially through Microsoft Defender, with broader Microsoft Security expansion planned. Microsoft also documents a multi-model approach that includes MAI-Cyber-1-Flash. That model claim is confirmed as grounded vendor evidence but remains evidence-only because ASI has no approved ontology term for this specific model relationship.\n\n### Microsoft AI Code Security\n\nMicrosoft documents a multistage prepare, scan, validate, and deduplicate pipeline. The preparation stage ranks code by risk. The scanning stage uses more than 100 specialized agents, including injection, memory-safety, and authentication-bypass auditors, across multiple LLMs. Validation uses taint analysis, Language Server Protocol type resolution, and multi-model debate to refine confidence and eliminate false positives.\n\nThe remediation path is concrete at the product-command level: Microsoft documents a `defender fix` command that generates and applies code fixes from scan results. This establishes a vendor-documented path from finding to action. It does not establish the correctness rate of those fixes or safe unattended use.\n\nMicrosoft AI Code Security is in preview in listed Azure commercial regions. The UAE scope is narrower and currently supports MDASH CLI scans only.\n\n## Evidence panel\n\n| Claim | Evidence class | Maturity | Status |\n| --- | --- | --- | --- |\n| Perception uses red/blue/green specialized agents and orchestrated workflows | Official vendor documentation | E1 | Human-confirmed vendor claim |\n| High-impact Perception actions require human sign-off | Official vendor documentation | E1 | Human-confirmed control claim |\n| Perception uses multiple models including MAI-Cyber-1-Flash | Official vendor documentation | E1 | Human-confirmed evidence; ontology promotion pending |\n| AI Code Security uses a staged agentic pipeline | Official vendor documentation | E1 | Human-confirmed vendor claim |\n| Its scanning stage uses more than 100 specialized agents | Official vendor documentation | E1 | Human-confirmed vendor claim |\n| Defender CLI can generate and apply fixes from scan results | Official vendor documentation | E1 | Human-confirmed vendor capability claim |\n| Either system improves production security outcomes | None found | E0 | UNKNOWN |\n\n## Claims versus evidence\n\nThe evidence supports architectural and product-behavior statements because the canonical vendor pages state them directly. It does not support stronger conclusions about detection quality, false-positive rates, remediation correctness, organizational risk reduction, or performance at enterprise scale.\n\n\u201cMore than 100 agents\u201d is a documented component-count claim, not proof that the system is more effective than a smaller architecture. \u201cMulti-model debate\u201d is a documented validation mechanism, not independent proof that false positives are eliminated in representative repositories. \u201cGenerate and apply fixes\u201d establishes command capability, not that generated fixes are safe to apply without review.\n\n## Autonomy profile\n\nProject Perception: work execution is assigned to agents; high-impact action remains human-gated. Exact action classes, escalation behavior, permission boundaries, and failure modes remain unspecified in the collected evidence.\n\nMicrosoft AI Code Security: scanning and analysis are agentic. A remediation command exists, but the collected evidence does not establish unattended production execution or the approval model around applying a fix.\n\n## Control profile\n\nThe clearest control evidence is Perception's pre-action human sign-off for high-impact actions, combined with defender-set objectives and guardrails. The orchestration harness is described as supporting reliable operation, testing, and guidance, but no public control assurance or independent audit was found.\n\nFor AI Code Security, taint analysis, type resolution, and model debate act as technical validation layers. They should not be conflated with organizational approval, authorization, or change-management controls.\n\n## Availability\n\nBoth systems are preview offerings. Perception is initially delivered in Microsoft Defender with broader expansion planned. AI Code Security is available in listed Azure commercial regions, subject to regional feature scope. Preview availability should be treated as evaluation-stage, not general production assurance.\n\n## Independent-validation status\n\nNo independent validation or independent production-effectiveness evidence was found for the claims in this article. All supporting evidence is canonical Microsoft documentation. The statements are therefore confirmed as accurately grounded vendor claims, not independently confirmed outcomes.\n\n## Unknowns\n\n- Reliability of cross-agent orchestration under partial failure.\n- Exact authorization and escalation boundaries for each action class.\n- Independent measurements of detection quality and false-positive reduction.\n- Correctness and security impact of generated remediation.\n- Operational cost, latency, and model-routing behavior at enterprise scale.\n- Production effectiveness compared with established non-agentic workflows.\n\n## Decision relevance\n\nEnterprise evaluations should treat the control plane as a first-class security boundary. Architecture reviews should inspect agent roles, handoffs, model routing, shared context, and failure containment. Authorization reviews should identify which actions require pre-approval and whether those controls are technically enforced. Security testing should measure the end-to-end workflow rather than evaluating model outputs in isolation.\n\nProcurement teams should also separate availability from assurance. Preview access and a long agent roster are useful product facts; neither is evidence of production effectiveness.\n\n## Methodology and verification\n\nMethodology version: ASI-1.0\n\nEvidence handling: verbatim passages were anchored to governed snapshots, deterministically validated, consolidated by semantic claim, and confirmed by a human reviewer. Vendor documentation, demonstration, benchmark evidence, independent validation, and production effectiveness remain separate evidence dimensions.\n\nLast verified: 2026-08-27\n\n## Canonical sources\n\n- Project Perception: https://www.microsoft.com/en-us/security/business/ai-powered-cybersecurity/project-perception-agentic-system\n- Microsoft AI Code Security: https://learn.microsoft.com/en-us/security-exposure-management/ai-code-security-overview\n",
+      "id": "ARTICLE-SECURITY-AGENT-CONTROL-PLANE",
+      "title": "The Security Agent Control Plane Is Emerging"
+    }
+  ],
   "canonical_base": "https://agentic-security-intelligence.pages.dev",
-  "changes": [],
-  "claims": [],
-  "daily": [],
-  "generated_at": "2026-08-26T00:00:00+00:00",
+  "changes": [
+    {
+      "classification": "APPROVAL_CHANGE",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "AUTHORIZATION",
+        "OPERATIONS",
+        "RISK"
+      ],
+      "description": "Project Perception documents human sign-off for every high-impact action, with defender-set objectives and guardrails.",
+      "id": "CHANGE-HR-PP-001",
+      "system_id": "SYS-MS-PERCEPTION"
+    },
+    {
+      "classification": "ARCHITECTURE_CHANGE",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "ARCHITECTURE",
+        "EVALUATION",
+        "RISK"
+      ],
+      "description": "Project Perception documents a red/blue/green multi-agent architecture coordinated by orchestrated workflows and an orchestration harness.",
+      "id": "CHANGE-HR-PP-002",
+      "system_id": "SYS-MS-PERCEPTION"
+    },
+    {
+      "classification": "AUTONOMY_FACET_CHANGE",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "AUTHORIZATION",
+        "EVALUATION",
+        "RISK"
+      ],
+      "description": "Project Perception assigns work execution to agents while reserving judgment to humans.",
+      "id": "CHANGE-HR-PP-003",
+      "system_id": "SYS-MS-PERCEPTION"
+    },
+    {
+      "classification": "AVAILABILITY_LIFECYCLE_CHANGE",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "DEPLOYMENT",
+        "EVALUATION",
+        "PROCUREMENT"
+      ],
+      "description": "Project Perception is in preview, initially delivered through Microsoft Defender, with broader Microsoft Security expansion planned.",
+      "id": "CHANGE-HR-PP-005",
+      "system_id": "SYS-MS-PERCEPTION"
+    },
+    {
+      "classification": "CAPABILITY_ADDITION",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "ARCHITECTURE",
+        "EVALUATION",
+        "PROCUREMENT"
+      ],
+      "description": "Codename MDASH is a private-preview agentic code scanner that surfaces code-level weaknesses across connected repositories.",
+      "id": "CHANGE-HR-MD-001",
+      "system_id": "SYS-MS-MDASH"
+    },
+    {
+      "classification": "CONTROL_CHANGE",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "AUTHORIZATION",
+        "EVALUATION",
+        "RISK"
+      ],
+      "description": "MDASH uses AI confidence and severity for triage while directing uncertain high-severity findings to human investigation before action.",
+      "id": "CHANGE-HR-MD-002",
+      "system_id": "SYS-MS-MDASH"
+    },
+    {
+      "classification": "ARCHITECTURE_CHANGE",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "ARCHITECTURE",
+        "EVALUATION",
+        "OPERATIONS"
+      ],
+      "description": "MDASH accepts Defender CLI and connector-triggered remote scans and labels their origin for provenance.",
+      "id": "CHANGE-HR-MD-003",
+      "system_id": "SYS-MS-MDASH"
+    },
+    {
+      "classification": "CAPABILITY_ADDITION",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "OPERATIONS",
+        "PROCUREMENT"
+      ],
+      "description": "MDASH exports validated findings to CSV for existing remediation workflows.",
+      "id": "CHANGE-HR-MD-004",
+      "system_id": "SYS-MS-MDASH"
+    },
+    {
+      "classification": "AVAILABILITY_LIFECYCLE_CHANGE",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "DEPLOYMENT",
+        "EVALUATION",
+        "PROCUREMENT"
+      ],
+      "description": "MDASH is in private preview and its documentation/access path requires authorization.",
+      "id": "CHANGE-HR-MD-005",
+      "system_id": "SYS-MS-MDASH"
+    },
+    {
+      "classification": "CONTROL_CHANGE",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "EVALUATION",
+        "OPERATIONS",
+        "RISK"
+      ],
+      "description": "The MDASH portal view surfaces only the most recent 90 days of scan activity.",
+      "id": "CHANGE-HR-MD-006",
+      "system_id": "SYS-MS-MDASH"
+    },
+    {
+      "classification": "AVAILABILITY_LIFECYCLE_CHANGE",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "DEPLOYMENT",
+        "PROCUREMENT"
+      ],
+      "description": "Microsoft Learn identifies Project Perception as Limited Public Preview.",
+      "id": "CHANGE-HR-MO-001",
+      "system_id": "SYS-MS-PERCEPTION"
+    },
+    {
+      "classification": "ARCHITECTURE_CHANGE",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "ARCHITECTURE",
+        "EVALUATION",
+        "RISK"
+      ],
+      "description": "Project Perception combines signals, context, models, and red/blue/green agents through coordinated playbooks.",
+      "id": "CHANGE-HR-MO-002",
+      "system_id": "SYS-MS-PERCEPTION"
+    },
+    {
+      "classification": "AUTONOMY_FACET_CHANGE",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "AUTHORIZATION",
+        "OPERATIONS",
+        "RISK"
+      ],
+      "description": "Project Perception supports autonomous execution initiated through reusable playbooks.",
+      "id": "CHANGE-HR-MO-003",
+      "system_id": "SYS-MS-PERCEPTION"
+    },
+    {
+      "classification": "CONTROL_CHANGE",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "AUTHORIZATION",
+        "OPERATIONS",
+        "RISK"
+      ],
+      "description": "Operators can approve or reject requested agent actions, stop sessions, and provide alternative guidance.",
+      "id": "CHANGE-HR-MO-004",
+      "system_id": "SYS-MS-PERCEPTION"
+    },
+    {
+      "classification": "ARCHITECTURE_CHANGE",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "ARCHITECTURE",
+        "EVALUATION",
+        "RISK"
+      ],
+      "description": "Microsoft AI Code Security documents a multistage prepare/scan/validate/deduplicate pipeline using risk ranking, taint analysis, LSP type resolution, and multi-model debate.",
+      "id": "CHANGE-HR-AC-001",
+      "system_id": "SYS-MS-AI-CODE"
+    },
+    {
+      "classification": "AGENT_ADDITION",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "ARCHITECTURE",
+        "EVALUATION",
+        "RISK"
+      ],
+      "description": "The scanning stage documents more than 100 specialized AI agents targeting vulnerability classes, including injection, memory-safety, and auth-bypass auditors.",
+      "id": "CHANGE-HR-AC-002",
+      "system_id": "SYS-MS-AI-CODE"
+    },
+    {
+      "classification": "CAPABILITY_ADDITION",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "AUTHORIZATION",
+        "OPERATIONS",
+        "RISK"
+      ],
+      "description": "The Defender CLI can generate and apply code fixes directly from agentic scan results.",
+      "id": "CHANGE-HR-AC-003",
+      "system_id": "SYS-MS-AI-CODE"
+    },
+    {
+      "classification": "CAPABILITY_ADDITION",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "ARCHITECTURE",
+        "OPERATIONS",
+        "PROCUREMENT"
+      ],
+      "description": "Agentic code-scanning findings are published to Microsoft Security Exposure Management for organization-wide triage.",
+      "id": "CHANGE-HR-AC-004",
+      "system_id": "SYS-MS-AI-CODE"
+    },
+    {
+      "classification": "AVAILABILITY_LIFECYCLE_CHANGE",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "DEPLOYMENT",
+        "PROCUREMENT",
+        "RISK"
+      ],
+      "description": "Microsoft AI Code Security is in preview across listed Azure commercial regions, with UAE limited to MDASH CLI scans.",
+      "id": "CHANGE-HR-AC-005",
+      "system_id": "SYS-MS-AI-CODE"
+    },
+    {
+      "classification": "CAPABILITY_ADDITION",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "EVALUATION",
+        "PROCUREMENT"
+      ],
+      "description": "The scanner claims broad language support with specially tuned expertise for C, C++, Java, and C#.",
+      "id": "CHANGE-HR-AC-006",
+      "system_id": "SYS-MS-AI-CODE"
+    },
+    {
+      "classification": "BENCHMARK_RESULT_CHANGE",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "EVALUATION",
+        "PROCUREMENT"
+      ],
+      "description": "Open Security has released ISPM Enterprise SQL v1 as its first autonomous cyber-defense benchmark.",
+      "id": "CHANGE-HR-OS-001",
+      "system_id": "SYS-OPEN-SECURITY"
+    },
+    {
+      "classification": "BENCHMARK_RESULT_CHANGE",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "EVALUATION",
+        "RISK"
+      ],
+      "description": "ISPM Enterprise SQL v1 uses a frozen synthetic enterprise and common questions, reporting 95% compatibility intervals across 127 tasks.",
+      "id": "CHANGE-HR-OS-002",
+      "system_id": "SYS-OPEN-SECURITY"
+    },
+    {
+      "classification": "CONTROL_CHANGE",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "AUTHORIZATION",
+        "EVALUATION",
+        "RISK"
+      ],
+      "description": "The benchmark supports local runs with user-owned model keys before submission for an official run.",
+      "id": "CHANGE-HR-OS-003",
+      "system_id": "SYS-OPEN-SECURITY"
+    },
+    {
+      "classification": "AVAILABILITY_LIFECYCLE_CHANGE",
+      "date": "2026-08-27",
+      "decision_impacts": [
+        "PROCUREMENT",
+        "RISK"
+      ],
+      "description": "Open Security labels the benchmark service as beta.",
+      "id": "CHANGE-HR-OS-004",
+      "system_id": "SYS-OPEN-SECURITY"
+    }
+  ],
+  "claims": [
+    {
+      "benchmarked": "NONE_FOUND",
+      "capability": "Remediation",
+      "demonstrated": "NONE_FOUND",
+      "evidence_panel": {
+        "capability_id": "remediation",
+        "independent_validation": "NONE_FOUND",
+        "methodology_version": "ASI-1.0",
+        "production_effectiveness": "UNKNOWN",
+        "public_demonstration": "NONE_FOUND",
+        "rationale": "Rows represent evidence categories; assertion support confidence is intentionally not rendered beside the capability name.",
+        "vendor_documentation": "HIGH"
+      },
+      "independently_validated": "No independent validation published as of 2026-08-27.",
+      "primary_documentation": "The Defender CLI can generate and apply code fixes directly from agentic scan results.",
+      "system_id": "SYS-MS-AI-CODE",
+      "system_name": "Microsoft AI Code Security",
+      "unknown": "Production effectiveness remains UNKNOWN.",
+      "vendor_claims": "The Defender CLI can generate and apply code fixes directly from agentic scan results."
+    },
+    {
+      "benchmarked": "NONE_FOUND",
+      "capability": "Alert Triage",
+      "demonstrated": "NONE_FOUND",
+      "evidence_panel": {
+        "capability_id": "alert-triage",
+        "independent_validation": "NONE_FOUND",
+        "methodology_version": "ASI-1.0",
+        "production_effectiveness": "UNKNOWN",
+        "public_demonstration": "NONE_FOUND",
+        "rationale": "Rows represent evidence categories; assertion support confidence is intentionally not rendered beside the capability name.",
+        "vendor_documentation": "HIGH"
+      },
+      "independently_validated": "No independent validation published as of 2026-08-27.",
+      "primary_documentation": "Agentic code-scanning findings are published to Microsoft Security Exposure Management for organization-wide triage.",
+      "system_id": "SYS-MS-AI-CODE",
+      "system_name": "Microsoft AI Code Security",
+      "unknown": "Production effectiveness remains UNKNOWN.",
+      "vendor_claims": "Agentic code-scanning findings are published to Microsoft Security Exposure Management for organization-wide triage."
+    },
+    {
+      "benchmarked": "NONE_FOUND",
+      "capability": "Vulnerability Validation",
+      "demonstrated": "NONE_FOUND",
+      "evidence_panel": {
+        "capability_id": "vulnerability-validation",
+        "independent_validation": "NONE_FOUND",
+        "methodology_version": "ASI-1.0",
+        "production_effectiveness": "UNKNOWN",
+        "public_demonstration": "NONE_FOUND",
+        "rationale": "Rows represent evidence categories; assertion support confidence is intentionally not rendered beside the capability name.",
+        "vendor_documentation": "HIGH"
+      },
+      "independently_validated": "No independent validation published as of 2026-08-27.",
+      "primary_documentation": "The scanner claims broad language support with specially tuned expertise for C, C++, Java, and C#.",
+      "system_id": "SYS-MS-AI-CODE",
+      "system_name": "Microsoft AI Code Security",
+      "unknown": "Production effectiveness remains UNKNOWN.",
+      "vendor_claims": "The scanner claims broad language support with specially tuned expertise for C, C++, Java, and C#."
+    },
+    {
+      "benchmarked": "NONE_FOUND",
+      "capability": "Vulnerability Validation",
+      "demonstrated": "NONE_FOUND",
+      "evidence_panel": {
+        "capability_id": "vulnerability-validation",
+        "independent_validation": "NONE_FOUND",
+        "methodology_version": "ASI-1.0",
+        "production_effectiveness": "UNKNOWN",
+        "public_demonstration": "NONE_FOUND",
+        "rationale": "Rows represent evidence categories; assertion support confidence is intentionally not rendered beside the capability name.",
+        "vendor_documentation": "HIGH"
+      },
+      "independently_validated": "No independent validation published as of 2026-08-27.",
+      "primary_documentation": "Codename MDASH is a private-preview agentic code scanner that surfaces code-level weaknesses across connected repositories.",
+      "system_id": "SYS-MS-MDASH",
+      "system_name": "MDASH",
+      "unknown": "Production effectiveness remains UNKNOWN.",
+      "vendor_claims": "Codename MDASH is a private-preview agentic code scanner that surfaces code-level weaknesses across connected repositories."
+    },
+    {
+      "benchmarked": "NONE_FOUND",
+      "capability": "Remediation",
+      "demonstrated": "NONE_FOUND",
+      "evidence_panel": {
+        "capability_id": "remediation",
+        "independent_validation": "NONE_FOUND",
+        "methodology_version": "ASI-1.0",
+        "production_effectiveness": "UNKNOWN",
+        "public_demonstration": "NONE_FOUND",
+        "rationale": "Rows represent evidence categories; assertion support confidence is intentionally not rendered beside the capability name.",
+        "vendor_documentation": "HIGH"
+      },
+      "independently_validated": "No independent validation published as of 2026-08-27.",
+      "primary_documentation": "MDASH exports validated findings to CSV for existing remediation workflows.",
+      "system_id": "SYS-MS-MDASH",
+      "system_name": "MDASH",
+      "unknown": "Production effectiveness remains UNKNOWN.",
+      "vendor_claims": "MDASH exports validated findings to CSV for existing remediation workflows."
+    }
+  ],
+  "daily": [
+    {
+      "date": "2026-08-27",
+      "markdown": "# Agentic Security Change Brief \u2014 2026-08-27\n\n## Material Changes\n\n### Project Perception documents human sign-off for every high-impact action, with defender-set objectives and guardrails.\n- Decision impact: AUTHORIZATION, OPERATIONS, RISK\n- Assertions: ASRT-HR-PP-001\n\n### Project Perception documents a red/blue/green multi-agent architecture coordinated by orchestrated workflows and an orchestration harness.\n- Decision impact: ARCHITECTURE, EVALUATION, RISK\n- Assertions: ASRT-HR-PP-002\n\n### Project Perception assigns work execution to agents while reserving judgment to humans.\n- Decision impact: AUTHORIZATION, EVALUATION, RISK\n- Assertions: ASRT-HR-PP-003\n\n### Project Perception is in preview, initially delivered through Microsoft Defender, with broader Microsoft Security expansion planned.\n- Decision impact: DEPLOYMENT, EVALUATION, PROCUREMENT\n- Assertions: ASRT-HR-PP-005\n\n### Codename MDASH is a private-preview agentic code scanner that surfaces code-level weaknesses across connected repositories.\n- Decision impact: ARCHITECTURE, EVALUATION, PROCUREMENT\n- Assertions: ASRT-HR-MD-001\n\n### MDASH uses AI confidence and severity for triage while directing uncertain high-severity findings to human investigation before action.\n- Decision impact: AUTHORIZATION, EVALUATION, RISK\n- Assertions: ASRT-HR-MD-002\n\n### MDASH accepts Defender CLI and connector-triggered remote scans and labels their origin for provenance.\n- Decision impact: ARCHITECTURE, EVALUATION, OPERATIONS\n- Assertions: ASRT-HR-MD-003\n\n### MDASH exports validated findings to CSV for existing remediation workflows.\n- Decision impact: OPERATIONS, PROCUREMENT\n- Assertions: ASRT-HR-MD-004\n\n### MDASH is in private preview and its documentation/access path requires authorization.\n- Decision impact: DEPLOYMENT, EVALUATION, PROCUREMENT\n- Assertions: ASRT-HR-MD-005\n\n### The MDASH portal view surfaces only the most recent 90 days of scan activity.\n- Decision impact: EVALUATION, OPERATIONS, RISK\n- Assertions: ASRT-HR-MD-006\n\n### Microsoft Learn identifies Project Perception as Limited Public Preview.\n- Decision impact: DEPLOYMENT, PROCUREMENT\n- Assertions: ASRT-HR-MO-001\n\n### Project Perception combines signals, context, models, and red/blue/green agents through coordinated playbooks.\n- Decision impact: ARCHITECTURE, EVALUATION, RISK\n- Assertions: ASRT-HR-PP-002\n\n### Project Perception supports autonomous execution initiated through reusable playbooks.\n- Decision impact: AUTHORIZATION, OPERATIONS, RISK\n- Assertions: ASRT-HR-PP-003\n\n### Operators can approve or reject requested agent actions, stop sessions, and provide alternative guidance.\n- Decision impact: AUTHORIZATION, OPERATIONS, RISK\n- Assertions: ASRT-HR-PP-001\n\n### Microsoft AI Code Security documents a multistage prepare/scan/validate/deduplicate pipeline using risk ranking, taint analysis, LSP type resolution, and multi-model debate.\n- Decision impact: ARCHITECTURE, EVALUATION, RISK\n- Assertions: ASRT-HR-AC-001\n\n### The scanning stage documents more than 100 specialized AI agents targeting vulnerability classes, including injection, memory-safety, and auth-bypass auditors.\n- Decision impact: ARCHITECTURE, EVALUATION, RISK\n- Assertions: ASRT-HR-AC-002\n\n### The Defender CLI can generate and apply code fixes directly from agentic scan results.\n- Decision impact: AUTHORIZATION, OPERATIONS, RISK\n- Assertions: ASRT-HR-AC-003\n\n### Agentic code-scanning findings are published to Microsoft Security Exposure Management for organization-wide triage.\n- Decision impact: ARCHITECTURE, OPERATIONS, PROCUREMENT\n- Assertions: ASRT-HR-AC-004\n\n### Microsoft AI Code Security is in preview across listed Azure commercial regions, with UAE limited to MDASH CLI scans.\n- Decision impact: DEPLOYMENT, PROCUREMENT, RISK\n- Assertions: ASRT-HR-AC-005\n\n### The scanner claims broad language support with specially tuned expertise for C, C++, Java, and C#.\n- Decision impact: EVALUATION, PROCUREMENT\n- Assertions: ASRT-HR-AC-006\n\n### Open Security has released ISPM Enterprise SQL v1 as its first autonomous cyber-defense benchmark.\n- Decision impact: EVALUATION, PROCUREMENT\n- Assertions: ASRT-HR-OS-001\n\n### ISPM Enterprise SQL v1 uses a frozen synthetic enterprise and common questions, reporting 95% compatibility intervals across 127 tasks.\n- Decision impact: EVALUATION, RISK\n- Assertions: ASRT-HR-OS-002\n\n### The benchmark supports local runs with user-owned model keys before submission for an official run.\n- Decision impact: AUTHORIZATION, EVALUATION, RISK\n- Assertions: ASRT-HR-OS-003\n\n### Open Security labels the benchmark service as beta.\n- Decision impact: PROCUREMENT, RISK\n- Assertions: ASRT-HR-OS-004\n\n## Control/Autonomy Changes\n\n## Availability & Lifecycle Changes\n\n## Capability Changes\n\n## Research & Benchmark Changes\n\n## Evidence Conflicts\n\n## Why It Matters\n\n## Sources\n",
+      "status": "MATERIAL_CHANGES"
+    }
+  ],
+  "generated_at": "2026-08-27T11:01:52.715953+00:00",
   "methodology_version": "ASI-1.0",
-  "sources": [],
-  "systems": [],
+  "sources": [
+    {
+      "contributes_evidence": true,
+      "id": "SRC-MS-AI-CODE",
+      "name": "AI code security overview",
+      "publisher": "Microsoft",
+      "role": "INPUT"
+    },
+    {
+      "contributes_evidence": true,
+      "id": "SRC-MS-MDASH",
+      "name": "MDASH initiative",
+      "publisher": "Microsoft",
+      "role": "INPUT"
+    }
+  ],
+  "systems": [
+    {
+      "agents": [],
+      "architecture": [
+        {
+          "evidence_ids": [
+            "EV-HR-AC-001-01",
+            "EV-HR-AC-001-02",
+            "EV-HR-AC-001-03"
+          ],
+          "state": "AFFIRMED",
+          "statement": "Microsoft AI Code Security documents a multistage prepare/scan/validate/deduplicate pipeline using risk ranking, taint analysis, LSP type resolution, and multi-model debate."
+        },
+        {
+          "evidence_ids": [
+            "EV-HR-AC-002-01"
+          ],
+          "state": "AFFIRMED",
+          "statement": "The scanning stage documents more than 100 specialized AI agents targeting vulnerability classes, including injection, memory-safety, and auth-bypass auditors."
+        }
+      ],
+      "autonomy": null,
+      "capabilities": [
+        {
+          "agent_id": null,
+          "assertion_id": "ASRT-HR-AC-003",
+          "capability_id": "remediation",
+          "evidence": [
+            {
+              "id": "EV-HR-AC-003-01",
+              "independence": "UNDETERMINED",
+              "maturity": "E1",
+              "purpose": "DOCUMENTATION",
+              "quote": "Uses the defender fix command in the Defender CLI to generate and apply code fixes directly from scan results.",
+              "source_class": "P1",
+              "source_id": "SRC-MS-AI-CODE"
+            }
+          ],
+          "evidence_panel": {
+            "capability_id": "remediation",
+            "independent_validation": "NONE_FOUND",
+            "methodology_version": "ASI-1.0",
+            "production_effectiveness": "UNKNOWN",
+            "public_demonstration": "NONE_FOUND",
+            "rationale": "Rows represent evidence categories; assertion support confidence is intentionally not rendered beside the capability name.",
+            "vendor_documentation": "HIGH"
+          },
+          "name": "Remediation",
+          "scope": {
+            "availability": "UNKNOWN",
+            "conditions": [
+              "CLI-invoked workflow; approval, branch, and repository permission controls are not specified."
+            ],
+            "license_tier": "unknown",
+            "regions": []
+          },
+          "state": "AFFIRMED",
+          "statement": "The Defender CLI can generate and apply code fixes directly from agentic scan results.",
+          "support_confidence": {
+            "methodology_version": "ASI-1.0",
+            "rationale": "HIGH for quote-to-assertion support; truth not independently confirmed",
+            "value": "HIGH"
+          }
+        },
+        {
+          "agent_id": null,
+          "assertion_id": "ASRT-HR-AC-004",
+          "capability_id": "alert-triage",
+          "evidence": [
+            {
+              "id": "EV-HR-AC-004-01",
+              "independence": "UNDETERMINED",
+              "maturity": "E1",
+              "purpose": "DOCUMENTATION",
+              "quote": "Publishes findings to Microsoft Security Exposure Management for organization-wide tracking and triage.",
+              "source_class": "P1",
+              "source_id": "SRC-MS-AI-CODE"
+            }
+          ],
+          "evidence_panel": {
+            "capability_id": "alert-triage",
+            "independent_validation": "NONE_FOUND",
+            "methodology_version": "ASI-1.0",
+            "production_effectiveness": "UNKNOWN",
+            "public_demonstration": "NONE_FOUND",
+            "rationale": "Rows represent evidence categories; assertion support confidence is intentionally not rendered beside the capability name.",
+            "vendor_documentation": "HIGH"
+          },
+          "name": "Alert Triage",
+          "scope": {
+            "availability": "UNKNOWN",
+            "conditions": [
+              "Requires Microsoft Security Exposure Management."
+            ],
+            "license_tier": "unknown",
+            "regions": []
+          },
+          "state": "AFFIRMED",
+          "statement": "Agentic code-scanning findings are published to Microsoft Security Exposure Management for organization-wide triage.",
+          "support_confidence": {
+            "methodology_version": "ASI-1.0",
+            "rationale": "HIGH for quote-to-assertion support; truth not independently confirmed",
+            "value": "HIGH"
+          }
+        },
+        {
+          "agent_id": null,
+          "assertion_id": "ASRT-HR-AC-006",
+          "capability_id": "vulnerability-validation",
+          "evidence": [
+            {
+              "id": "EV-HR-AC-006-01",
+              "independence": "UNDETERMINED",
+              "maturity": "E1",
+              "purpose": "DOCUMENTATION",
+              "quote": "Currently, we've trained individual specially tuned expert agents with particularly deep expertise in languages such as C, C++, Java, and C#.",
+              "source_class": "P1",
+              "source_id": "SRC-MS-AI-CODE"
+            }
+          ],
+          "evidence_panel": {
+            "capability_id": "vulnerability-validation",
+            "independent_validation": "NONE_FOUND",
+            "methodology_version": "ASI-1.0",
+            "production_effectiveness": "UNKNOWN",
+            "public_demonstration": "NONE_FOUND",
+            "rationale": "Rows represent evidence categories; assertion support confidence is intentionally not rendered beside the capability name.",
+            "vendor_documentation": "HIGH"
+          },
+          "name": "Vulnerability Validation",
+          "scope": {
+            "availability": "UNKNOWN",
+            "conditions": [
+              "Vendor-documented coverage; no comparative language benchmark supplied."
+            ],
+            "license_tier": "unknown",
+            "regions": []
+          },
+          "state": "AFFIRMED",
+          "statement": "The scanner claims broad language support with specially tuned expertise for C, C++, Java, and C#.",
+          "support_confidence": {
+            "methodology_version": "ASI-1.0",
+            "rationale": "HIGH for quote-to-assertion support; truth not independently confirmed",
+            "value": "HIGH"
+          }
+        }
+      ],
+      "category": "Agentic security",
+      "conflicts": [],
+      "controls": [],
+      "description": "Governed intelligence profile for Microsoft AI Code Security",
+      "first_observed_at": "2026-08-27",
+      "freshness": "FRESH",
+      "id": "SYS-MS-AI-CODE",
+      "last_verified_at": "2026-08-27",
+      "lifecycle": [],
+      "methodology_version": "ASI-1.0",
+      "name": "Microsoft AI Code Security",
+      "recent_changes": [
+        {
+          "classification": "ARCHITECTURE_CHANGE",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "ARCHITECTURE",
+            "EVALUATION",
+            "RISK"
+          ],
+          "description": "Microsoft AI Code Security documents a multistage prepare/scan/validate/deduplicate pipeline using risk ranking, taint analysis, LSP type resolution, and multi-model debate.",
+          "id": "CHANGE-HR-AC-001",
+          "system_id": "SYS-MS-AI-CODE"
+        },
+        {
+          "classification": "AGENT_ADDITION",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "ARCHITECTURE",
+            "EVALUATION",
+            "RISK"
+          ],
+          "description": "The scanning stage documents more than 100 specialized AI agents targeting vulnerability classes, including injection, memory-safety, and auth-bypass auditors.",
+          "id": "CHANGE-HR-AC-002",
+          "system_id": "SYS-MS-AI-CODE"
+        },
+        {
+          "classification": "CAPABILITY_ADDITION",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "AUTHORIZATION",
+            "OPERATIONS",
+            "RISK"
+          ],
+          "description": "The Defender CLI can generate and apply code fixes directly from agentic scan results.",
+          "id": "CHANGE-HR-AC-003",
+          "system_id": "SYS-MS-AI-CODE"
+        },
+        {
+          "classification": "CAPABILITY_ADDITION",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "ARCHITECTURE",
+            "OPERATIONS",
+            "PROCUREMENT"
+          ],
+          "description": "Agentic code-scanning findings are published to Microsoft Security Exposure Management for organization-wide triage.",
+          "id": "CHANGE-HR-AC-004",
+          "system_id": "SYS-MS-AI-CODE"
+        },
+        {
+          "classification": "AVAILABILITY_LIFECYCLE_CHANGE",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "DEPLOYMENT",
+            "PROCUREMENT",
+            "RISK"
+          ],
+          "description": "Microsoft AI Code Security is in preview across listed Azure commercial regions, with UAE limited to MDASH CLI scans.",
+          "id": "CHANGE-HR-AC-005",
+          "system_id": "SYS-MS-AI-CODE"
+        },
+        {
+          "classification": "CAPABILITY_ADDITION",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "EVALUATION",
+            "PROCUREMENT"
+          ],
+          "description": "The scanner claims broad language support with specially tuned expertise for C, C++, Java, and C#.",
+          "id": "CHANGE-HR-AC-006",
+          "system_id": "SYS-MS-AI-CODE"
+        }
+      ],
+      "sources": [
+        {
+          "id": "SRC-MS-AI-CODE",
+          "name": "AI code security overview",
+          "publisher": "Microsoft"
+        }
+      ],
+      "taxonomy_version": "ASI-TAXONOMY-1.1",
+      "vendor": "Microsoft"
+    },
+    {
+      "agents": [],
+      "architecture": [
+        {
+          "evidence_ids": [
+            "EV-HR-MD-003-01",
+            "EV-HR-MD-003-02"
+          ],
+          "state": "AFFIRMED",
+          "statement": "MDASH accepts Defender CLI and connector-triggered remote scans and labels their origin for provenance."
+        }
+      ],
+      "autonomy": null,
+      "capabilities": [
+        {
+          "agent_id": null,
+          "assertion_id": "ASRT-HR-MD-001",
+          "capability_id": "vulnerability-validation",
+          "evidence": [
+            {
+              "id": "EV-HR-MD-001-01",
+              "independence": "UNDETERMINED",
+              "maturity": "E1",
+              "purpose": "DOCUMENTATION",
+              "quote": "Codename MDASH - Agentic code scanner initiative (private preview)",
+              "source_class": "P1",
+              "source_id": "SRC-MS-MDASH"
+            },
+            {
+              "id": "EV-HR-MD-001-02",
+              "independence": "UNDETERMINED",
+              "maturity": "E1",
+              "purpose": "DOCUMENTATION",
+              "quote": "Codename MDASH - Agentic code scanner is a dedicated page in the Microsoft Defender portal that surfaces code-level weaknesses detected by agentic code scanning across your connected repositories.",
+              "source_class": "P1",
+              "source_id": "SRC-MS-MDASH"
+            }
+          ],
+          "evidence_panel": {
+            "capability_id": "vulnerability-validation",
+            "independent_validation": "NONE_FOUND",
+            "methodology_version": "ASI-1.0",
+            "production_effectiveness": "UNKNOWN",
+            "public_demonstration": "NONE_FOUND",
+            "rationale": "Rows represent evidence categories; assertion support confidence is intentionally not rendered beside the capability name.",
+            "vendor_documentation": "HIGH"
+          },
+          "name": "Vulnerability Validation",
+          "scope": {
+            "availability": "UNKNOWN",
+            "conditions": [
+              "Private preview; repository connector prerequisites apply."
+            ],
+            "license_tier": "unknown",
+            "regions": []
+          },
+          "state": "AFFIRMED",
+          "statement": "Codename MDASH is a private-preview agentic code scanner that surfaces code-level weaknesses across connected repositories.",
+          "support_confidence": {
+            "methodology_version": "ASI-1.0",
+            "rationale": "HIGH for quote-to-assertion support; truth not independently confirmed",
+            "value": "HIGH"
+          }
+        },
+        {
+          "agent_id": null,
+          "assertion_id": "ASRT-HR-MD-004",
+          "capability_id": "remediation",
+          "evidence": [
+            {
+              "id": "EV-HR-MD-004-01",
+              "independence": "UNDETERMINED",
+              "maturity": "E1",
+              "purpose": "DOCUMENTATION",
+              "quote": "with an Export action that downloads the findings to CSV in one click, ready for your organization's remediation workflow",
+              "source_class": "P1",
+              "source_id": "SRC-MS-MDASH"
+            }
+          ],
+          "evidence_panel": {
+            "capability_id": "remediation",
+            "independent_validation": "NONE_FOUND",
+            "methodology_version": "ASI-1.0",
+            "production_effectiveness": "UNKNOWN",
+            "public_demonstration": "NONE_FOUND",
+            "rationale": "Rows represent evidence categories; assertion support confidence is intentionally not rendered beside the capability name.",
+            "vendor_documentation": "HIGH"
+          },
+          "name": "Remediation",
+          "scope": {
+            "availability": "UNKNOWN",
+            "conditions": [
+              "Export transfers findings; it does not establish automated remediation."
+            ],
+            "license_tier": "unknown",
+            "regions": []
+          },
+          "state": "AFFIRMED",
+          "statement": "MDASH exports validated findings to CSV for existing remediation workflows.",
+          "support_confidence": {
+            "methodology_version": "ASI-1.0",
+            "rationale": "HIGH for quote-to-assertion support; truth not independently confirmed",
+            "value": "HIGH"
+          }
+        }
+      ],
+      "category": "Agentic security",
+      "conflicts": [],
+      "controls": [
+        {
+          "evidence_ids": [
+            "EV-HR-MD-002-01",
+            "EV-HR-MD-002-02"
+          ],
+          "state": "AFFIRMED",
+          "statement": "MDASH uses AI confidence and severity for triage while directing uncertain high-severity findings to human investigation before action."
+        },
+        {
+          "evidence_ids": [
+            "EV-HR-MD-006-01"
+          ],
+          "state": "AFFIRMED",
+          "statement": "The MDASH portal view surfaces only the most recent 90 days of scan activity."
+        }
+      ],
+      "description": "Governed intelligence profile for MDASH",
+      "first_observed_at": "2026-08-27",
+      "freshness": "FRESH",
+      "id": "SYS-MS-MDASH",
+      "last_verified_at": "2026-08-27",
+      "lifecycle": [],
+      "methodology_version": "ASI-1.0",
+      "name": "MDASH",
+      "recent_changes": [
+        {
+          "classification": "CAPABILITY_ADDITION",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "ARCHITECTURE",
+            "EVALUATION",
+            "PROCUREMENT"
+          ],
+          "description": "Codename MDASH is a private-preview agentic code scanner that surfaces code-level weaknesses across connected repositories.",
+          "id": "CHANGE-HR-MD-001",
+          "system_id": "SYS-MS-MDASH"
+        },
+        {
+          "classification": "CONTROL_CHANGE",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "AUTHORIZATION",
+            "EVALUATION",
+            "RISK"
+          ],
+          "description": "MDASH uses AI confidence and severity for triage while directing uncertain high-severity findings to human investigation before action.",
+          "id": "CHANGE-HR-MD-002",
+          "system_id": "SYS-MS-MDASH"
+        },
+        {
+          "classification": "ARCHITECTURE_CHANGE",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "ARCHITECTURE",
+            "EVALUATION",
+            "OPERATIONS"
+          ],
+          "description": "MDASH accepts Defender CLI and connector-triggered remote scans and labels their origin for provenance.",
+          "id": "CHANGE-HR-MD-003",
+          "system_id": "SYS-MS-MDASH"
+        },
+        {
+          "classification": "CAPABILITY_ADDITION",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "OPERATIONS",
+            "PROCUREMENT"
+          ],
+          "description": "MDASH exports validated findings to CSV for existing remediation workflows.",
+          "id": "CHANGE-HR-MD-004",
+          "system_id": "SYS-MS-MDASH"
+        },
+        {
+          "classification": "AVAILABILITY_LIFECYCLE_CHANGE",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "DEPLOYMENT",
+            "EVALUATION",
+            "PROCUREMENT"
+          ],
+          "description": "MDASH is in private preview and its documentation/access path requires authorization.",
+          "id": "CHANGE-HR-MD-005",
+          "system_id": "SYS-MS-MDASH"
+        },
+        {
+          "classification": "CONTROL_CHANGE",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "EVALUATION",
+            "OPERATIONS",
+            "RISK"
+          ],
+          "description": "The MDASH portal view surfaces only the most recent 90 days of scan activity.",
+          "id": "CHANGE-HR-MD-006",
+          "system_id": "SYS-MS-MDASH"
+        }
+      ],
+      "sources": [
+        {
+          "id": "SRC-MS-MDASH",
+          "name": "MDASH initiative",
+          "publisher": "Microsoft"
+        }
+      ],
+      "taxonomy_version": "ASI-TAXONOMY-1.1",
+      "vendor": "Microsoft"
+    },
+    {
+      "agents": [],
+      "architecture": [
+        {
+          "evidence_ids": [
+            "EV-HR-PP-002-01",
+            "EV-HR-PP-002-02",
+            "EV-HR-PP-002-03"
+          ],
+          "state": "AFFIRMED",
+          "statement": "Project Perception documents a red/blue/green multi-agent architecture coordinated by orchestrated workflows and an orchestration harness."
+        }
+      ],
+      "autonomy": null,
+      "capabilities": [],
+      "category": "Agentic security",
+      "conflicts": [],
+      "controls": [
+        {
+          "evidence_ids": [
+            "EV-HR-PP-001-01"
+          ],
+          "state": "AFFIRMED",
+          "statement": "Project Perception documents human sign-off for every high-impact action, with defender-set objectives and guardrails."
+        }
+      ],
+      "description": "Governed intelligence profile for Project Perception",
+      "first_observed_at": "2026-08-27",
+      "freshness": "FRESH",
+      "id": "SYS-MS-PERCEPTION",
+      "last_verified_at": "2026-08-27",
+      "lifecycle": [],
+      "methodology_version": "ASI-1.0",
+      "name": "Project Perception",
+      "recent_changes": [
+        {
+          "classification": "APPROVAL_CHANGE",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "AUTHORIZATION",
+            "OPERATIONS",
+            "RISK"
+          ],
+          "description": "Project Perception documents human sign-off for every high-impact action, with defender-set objectives and guardrails.",
+          "id": "CHANGE-HR-PP-001",
+          "system_id": "SYS-MS-PERCEPTION"
+        },
+        {
+          "classification": "ARCHITECTURE_CHANGE",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "ARCHITECTURE",
+            "EVALUATION",
+            "RISK"
+          ],
+          "description": "Project Perception documents a red/blue/green multi-agent architecture coordinated by orchestrated workflows and an orchestration harness.",
+          "id": "CHANGE-HR-PP-002",
+          "system_id": "SYS-MS-PERCEPTION"
+        },
+        {
+          "classification": "AUTONOMY_FACET_CHANGE",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "AUTHORIZATION",
+            "EVALUATION",
+            "RISK"
+          ],
+          "description": "Project Perception assigns work execution to agents while reserving judgment to humans.",
+          "id": "CHANGE-HR-PP-003",
+          "system_id": "SYS-MS-PERCEPTION"
+        },
+        {
+          "classification": "AVAILABILITY_LIFECYCLE_CHANGE",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "DEPLOYMENT",
+            "EVALUATION",
+            "PROCUREMENT"
+          ],
+          "description": "Project Perception is in preview, initially delivered through Microsoft Defender, with broader Microsoft Security expansion planned.",
+          "id": "CHANGE-HR-PP-005",
+          "system_id": "SYS-MS-PERCEPTION"
+        },
+        {
+          "classification": "AVAILABILITY_LIFECYCLE_CHANGE",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "DEPLOYMENT",
+            "PROCUREMENT"
+          ],
+          "description": "Microsoft Learn identifies Project Perception as Limited Public Preview.",
+          "id": "CHANGE-HR-MO-001",
+          "system_id": "SYS-MS-PERCEPTION"
+        },
+        {
+          "classification": "ARCHITECTURE_CHANGE",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "ARCHITECTURE",
+            "EVALUATION",
+            "RISK"
+          ],
+          "description": "Project Perception combines signals, context, models, and red/blue/green agents through coordinated playbooks.",
+          "id": "CHANGE-HR-MO-002",
+          "system_id": "SYS-MS-PERCEPTION"
+        },
+        {
+          "classification": "AUTONOMY_FACET_CHANGE",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "AUTHORIZATION",
+            "OPERATIONS",
+            "RISK"
+          ],
+          "description": "Project Perception supports autonomous execution initiated through reusable playbooks.",
+          "id": "CHANGE-HR-MO-003",
+          "system_id": "SYS-MS-PERCEPTION"
+        },
+        {
+          "classification": "CONTROL_CHANGE",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "AUTHORIZATION",
+            "OPERATIONS",
+            "RISK"
+          ],
+          "description": "Operators can approve or reject requested agent actions, stop sessions, and provide alternative guidance.",
+          "id": "CHANGE-HR-MO-004",
+          "system_id": "SYS-MS-PERCEPTION"
+        }
+      ],
+      "sources": [],
+      "taxonomy_version": "ASI-TAXONOMY-1.1",
+      "vendor": "Microsoft"
+    },
+    {
+      "agents": [],
+      "architecture": [],
+      "autonomy": null,
+      "capabilities": [],
+      "category": "Agentic security",
+      "conflicts": [],
+      "controls": [],
+      "description": "Governed intelligence profile for Open Security Benchmark",
+      "first_observed_at": "2026-08-27",
+      "freshness": "FRESH",
+      "id": "SYS-OPEN-SECURITY",
+      "last_verified_at": "2026-08-27",
+      "lifecycle": [],
+      "methodology_version": "ASI-1.0",
+      "name": "Open Security Benchmark",
+      "recent_changes": [
+        {
+          "classification": "BENCHMARK_RESULT_CHANGE",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "EVALUATION",
+            "PROCUREMENT"
+          ],
+          "description": "Open Security has released ISPM Enterprise SQL v1 as its first autonomous cyber-defense benchmark.",
+          "id": "CHANGE-HR-OS-001",
+          "system_id": "SYS-OPEN-SECURITY"
+        },
+        {
+          "classification": "BENCHMARK_RESULT_CHANGE",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "EVALUATION",
+            "RISK"
+          ],
+          "description": "ISPM Enterprise SQL v1 uses a frozen synthetic enterprise and common questions, reporting 95% compatibility intervals across 127 tasks.",
+          "id": "CHANGE-HR-OS-002",
+          "system_id": "SYS-OPEN-SECURITY"
+        },
+        {
+          "classification": "CONTROL_CHANGE",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "AUTHORIZATION",
+            "EVALUATION",
+            "RISK"
+          ],
+          "description": "The benchmark supports local runs with user-owned model keys before submission for an official run.",
+          "id": "CHANGE-HR-OS-003",
+          "system_id": "SYS-OPEN-SECURITY"
+        },
+        {
+          "classification": "AVAILABILITY_LIFECYCLE_CHANGE",
+          "date": "2026-08-27",
+          "decision_impacts": [
+            "PROCUREMENT",
+            "RISK"
+          ],
+          "description": "Open Security labels the benchmark service as beta.",
+          "id": "CHANGE-HR-OS-004",
+          "system_id": "SYS-OPEN-SECURITY"
+        }
+      ],
+      "sources": [],
+      "taxonomy_version": "ASI-TAXONOMY-1.1",
+      "vendor": "Open Security"
+    }
+  ],
   "taxonomy_version": "ASI-TAXONOMY-1.1",
-  "weekly": []
+  "weekly": [
+    {
+      "date": "2026-08-27",
+      "markdown": "# Weekly Evidence Pack \u2014 2026-08-27\n\n## Executive Summary\n\n## What Changed This Week\n- Project Perception documents human sign-off for every high-impact action, with defender-set objectives and guardrails.\n- Project Perception documents a red/blue/green multi-agent architecture coordinated by orchestrated workflows and an orchestration harness.\n- Project Perception assigns work execution to agents while reserving judgment to humans.\n- Project Perception is in preview, initially delivered through Microsoft Defender, with broader Microsoft Security expansion planned.\n- Codename MDASH is a private-preview agentic code scanner that surfaces code-level weaknesses across connected repositories.\n- MDASH uses AI confidence and severity for triage while directing uncertain high-severity findings to human investigation before action.\n- MDASH accepts Defender CLI and connector-triggered remote scans and labels their origin for provenance.\n- MDASH exports validated findings to CSV for existing remediation workflows.\n- MDASH is in private preview and its documentation/access path requires authorization.\n- The MDASH portal view surfaces only the most recent 90 days of scan activity.\n- Microsoft Learn identifies Project Perception as Limited Public Preview.\n- Project Perception combines signals, context, models, and red/blue/green agents through coordinated playbooks.\n- Project Perception supports autonomous execution initiated through reusable playbooks.\n- Operators can approve or reject requested agent actions, stop sessions, and provide alternative guidance.\n- Microsoft AI Code Security documents a multistage prepare/scan/validate/deduplicate pipeline using risk ranking, taint analysis, LSP type resolution, and multi-model debate.\n- The scanning stage documents more than 100 specialized AI agents targeting vulnerability classes, including injection, memory-safety, and auth-bypass auditors.\n- The Defender CLI can generate and apply code fixes directly from agentic scan results.\n- Agentic code-scanning findings are published to Microsoft Security Exposure Management for organization-wide triage.\n- Microsoft AI Code Security is in preview across listed Azure commercial regions, with UAE limited to MDASH CLI scans.\n- The scanner claims broad language support with specially tuned expertise for C, C++, Java, and C#.\n- Open Security has released ISPM Enterprise SQL v1 as its first autonomous cyber-defense benchmark.\n- ISPM Enterprise SQL v1 uses a frozen synthetic enterprise and common questions, reporting 95% compatibility intervals across 127 tasks.\n- The benchmark supports local runs with user-owned model keys before submission for an official run.\n- Open Security labels the benchmark service as beta.\n\n## Evidence Conflicts\n\n## Freshness Alerts\n\n## Trend Primitives\n- preview_to_ga_days: {}\n\n## Architecture/Control Pattern\n\n## Independent Perspective\n\n## What Remains Unknown\n\n## Implications\n\n## What to Watch Next\n\n## Methodology\n\n## Sources\n\nInterpretation sections remain human-authored.\n"
+    }
+  ]
 }
