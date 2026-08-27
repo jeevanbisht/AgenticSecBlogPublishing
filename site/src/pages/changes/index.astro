@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import data from "../../data/ledger";
+import type { Change } from "../../data/types";
+
+const changes = data.changes as Change[];
+const impacts = [...new Set(changes.flatMap((change) => change.decision_impacts))].sort();
+---
+
+<BaseLayout title="Change intelligence | ASI" description="Human-confirmed material changes filterable by decision impact.">
+  <p class="eyebrow">Change intelligence</p>
+  <h1>Decision-relevant change feed</h1>
+  <div class="controls">
+    <label>Decision impact <select id="impact-filter"><option value="">All impacts</option>{impacts.map((impact) => <option value={impact}>{impact}</option>)}</select></label>
+    <label>Search <input id="change-search" type="search" placeholder="Filter changes" /></label>
+  </div>
+  <div id="change-list" class="grid">
+    {changes.map((change) => (
+      <article class="card" data-impacts={change.decision_impacts.join(" ")} data-text={`${change.description} ${change.classification}`.toLowerCase()}>
+        <p class="eyebrow">{change.classification}</p><h2>{change.description}</h2><p class="meta">{change.date}</p>
+        {change.decision_impacts.map((impact) => <span class="tag impact">{impact}</span>)}
+      </article>
+    ))}
+  </div>
+  <h2>Daily archive</h2>
+  <ul>{data.daily.map((brief) => <li><a href={`/changes/daily/${brief.date}/`}>{brief.date}</a> — {brief.status}</li>)}</ul>
+  <script is:inline src="/change-filter.js"></script>
+</BaseLayout>

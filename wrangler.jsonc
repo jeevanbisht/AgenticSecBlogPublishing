@@ -1,0 +1,6 @@
+{
+  "$schema": "./site/node_modules/wrangler/config-schema.json",
+  "name": "agentic-security-intelligence",
+  "pages_build_output_dir": "./site/dist",
+  "compatibility_date": "2026-08-26"
+}

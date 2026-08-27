@@ -1,0 +1,53 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import data from "../data/ledger";
+import type { Change, Conflict } from "../data/types";
+
+const recent = (data.changes as Change[]).slice(0, 4);
+const conflicts = data.systems.flatMap((system) =>
+  (system.conflicts as Conflict[]).map((conflict) => ({ system: system.name, ...conflict })),
+);
+---
+
+<BaseLayout title="Agentic Security Intelligence" description="Evidence-driven intelligence on enterprise security agents.">
+  <p class="eyebrow">Evidence · autonomy · control · change</p>
+  <h1>Security-agent claims, tested against the record.</h1>
+  <p class="lede">
+    Track what enterprise security agents can do, how independently they act, what controls
+    constrain them, and how the evidence changes over time.
+  </p>
+
+  <h2>What changed</h2>
+  <div class="grid">
+    {recent.map((change) => (
+      <article class="card">
+        <p class="eyebrow">{change.classification}</p>
+        <h3>{change.description}</h3>
+        <p class="meta">{change.date}</p>
+        <div>{change.decision_impacts.map((impact) => <span class="tag impact">{impact}</span>)}</div>
+      </article>
+    ))}
+  </div>
+
+  <h2>Systems tracked</h2>
+  <div class="grid">
+    {data.systems.map((system) => (
+      <article class="card">
+        <p class="eyebrow">{system.vendor}</p>
+        <h3><a href={`/systems/${system.id}/`}>{system.name}</a></h3>
+        <p>{system.description}</p>
+        <p class="meta">{system.capabilities.length} capability assertions · {system.freshness}</p>
+      </article>
+    ))}
+  </div>
+
+  <h2>Evidence conflicts</h2>
+  {conflicts.length ? conflicts.map((conflict) => (
+    <article class="card"><strong>{conflict.system}</strong><p>{conflict.rationale}</p></article>
+  )) : <p>No open conflicts in the current public projection.</p>}
+
+  <h2>Latest weekly analysis</h2>
+  {data.weekly.length
+    ? <p><a href={`/weekly/${data.weekly[0].date}/`}>Weekly evidence pack — {data.weekly[0].date}</a></p>
+    : <p>No weekly evidence pack has been projected.</p>}
+</BaseLayout>

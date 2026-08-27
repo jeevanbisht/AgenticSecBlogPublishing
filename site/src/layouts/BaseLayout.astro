@@ -1,0 +1,52 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+}
+
+const { title, description, canonical = Astro.url.pathname } = Astro.props;
+const canonicalUrl = new URL(canonical, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Agentic Security Intelligence" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" type="application/rss+xml" title="ASI RSS" href="/rss.xml" />
+    <link rel="alternate" type="application/atom+xml" title="ASI Atom" href="/atom.xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header>
+      <nav class="shell" aria-label="Primary navigation">
+        <a class="brand" href="/">Agentic Security Intelligence</a>
+        <a href="/systems/">Systems</a>
+        <a href="/claims-vs-reality/">Claims vs reality</a>
+        <a href="/changes/">Changes</a>
+        <a href="/weekly/">Weekly</a>
+        <a href="/methodology/">Methodology</a>
+      </nav>
+    </header>
+    <main id="content" class="shell">
+      <slot />
+    </main>
+    <footer>
+      <div class="shell">
+        Evidence-first analysis. Human-reviewed merge is the publication boundary.
+      </div>
+    </footer>
+  </body>
+</html>

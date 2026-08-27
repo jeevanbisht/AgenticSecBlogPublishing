@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import data from "../data/ledger";
+---
+
+<BaseLayout title="Claims vs reality | ASI" description="Vendor claims separated from documentation, demonstrations, benchmarks, independent validation, and unknowns.">
+  <p class="eyebrow">Claims vs reality</p>
+  <h1>Evidence categories stay separate.</h1>
+  <p class="lede">Empty columns are findings, not omissions. NONE_FOUND is not NO; UNKNOWN is not a negative claim.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>System / capability</th><th>Vendor claims</th><th>Primary documentation</th><th>Demonstrated</th><th>Benchmarked</th><th>Independently validated</th><th>Unknown</th></tr></thead>
+      <tbody>
+        {data.claims.map((claim) => (
+          <tr>
+            <th><a href={`/systems/${claim.system_id}/`}>{claim.system_name}</a><br />{claim.capability}</th>
+            <td>{claim.vendor_claims}</td>
+            <td>{claim.primary_documentation}</td>
+            <td>{claim.demonstrated}</td>
+            <td>{claim.benchmarked}</td>
+            <td class:list={{ none: claim.independently_validated.includes("No independent") }}>{claim.independently_validated}</td>
+            <td class="none">{claim.unknown}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</BaseLayout>

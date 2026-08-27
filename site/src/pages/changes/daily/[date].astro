@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import data from "../../../data/ledger";
+
+export function getStaticPaths() {
+  return data.daily.map((brief) => ({ params: { date: brief.date }, props: { brief } }));
+}
+const { brief } = Astro.props;
+---
+
+<BaseLayout title={`Daily brief ${brief.date} | ASI`} description={`Agentic Security Change Brief for ${brief.date}.`}>
+  <p class="eyebrow">{brief.status}</p>
+  <h1>Daily brief — {brief.date}</h1>
+  <pre>{brief.markdown}</pre>
+</BaseLayout>

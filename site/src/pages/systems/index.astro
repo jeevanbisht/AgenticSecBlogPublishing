@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import data from "../../data/ledger";
+---
+
+<BaseLayout title="System profiles | ASI" description="Evidence-backed profiles of enterprise agentic-security systems.">
+  <p class="eyebrow">System profiles</p>
+  <h1>Tracked systems</h1>
+  <div class="grid">
+    {data.systems.map((system) => (
+      <article class="card">
+        <p class="eyebrow">{system.vendor}</p>
+        <h2><a href={`/systems/${system.id}/`}>{system.name}</a></h2>
+        <p>{system.description}</p>
+        <p class="meta">Verified {system.last_verified_at} · {system.methodology_version}</p>
+      </article>
+    ))}
+  </div>
+</BaseLayout>

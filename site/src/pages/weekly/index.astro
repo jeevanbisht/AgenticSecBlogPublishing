@@ -1,0 +1,12 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import data from "../../data/ledger";
+---
+
+<BaseLayout title="Weekly analysis | ASI" description="Human-authored weekly analysis seeded by ledger-derived evidence packs.">
+  <p class="eyebrow">Weekly analysis</p>
+  <h1>Evidence pack archive</h1>
+  <div class="grid">{data.weekly.map((pack) => (
+    <article class="card"><h2><a href={`/weekly/${pack.date}/`}>Week ending {pack.date}</a></h2><p>Ledger-derived evidence, conflicts, freshness alerts, and trend primitives.</p></article>
+  ))}</div>
+</BaseLayout>

@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import data from "../data/ledger";
+---
+
+<BaseLayout title="Methodology | ASI" description="Definitions, evidence rubrics, assertion semantics, and human review boundaries.">
+  <p class="eyebrow">{data.methodology_version} · {data.taxonomy_version}</p>
+  <h1>Methodology</h1>
+  <div class="prose">
+    <h2>Assertion semantics</h2>
+    <p>AFFIRMED, EXPLICITLY_UNSUPPORTED, UNKNOWN, PARTIAL, CONDITIONAL, and DISPUTED describe assertion state. UNKNOWN never becomes NO without explicit evidence. Scope is derived from the latest accepted observation.</p>
+    <h2>Evidence is multidimensional</h2>
+    <p>Source class, maturity, independence, and assertion support confidence are separate. Capability panels always expose vendor documentation, public demonstration, independent validation, and production effectiveness. Missing evidence is rendered as NONE_FOUND or UNKNOWN.</p>
+    <h2>Change and review</h2>
+    <p>Deterministic candidates preserve their immutable machine proposal. Human decisions append a new review record with reviewer, time, rationale, methodology, and confirmed decision impacts.</p>
+    <h2>Publication boundary</h2>
+    <p>Automation prepares draft artifacts. Agents cannot merge or publish. A human-approved merge to the trusted publication branch is required.</p>
+    <p><a href="https://github.com/">Read the complete repository methodology</a>.</p>
+  </div>
+</BaseLayout>

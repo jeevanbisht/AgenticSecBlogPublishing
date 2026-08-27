@@ -1,0 +1,27 @@
+{
+  "name": "agentic-security-intelligence-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare-data": "python ../scripts/prepare_site_data.py",
+    "prepare-data:demo": "python ../scripts/generate_site_data.py --demo-input ../data/demo",
+    "dev": "npm run prepare-data && astro dev",
+    "dev:demo": "npm run prepare-data:demo && astro dev",
+    "check": "npm run prepare-data && astro check",
+    "check:demo": "npm run prepare-data:demo && astro check",
+    "test": "node --test tests/*.test.mjs",
+    "build": "npm run prepare-data && astro build",
+    "build:demo": "npm run prepare-data:demo && astro build"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.14",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.2.7"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^5.9.2",
+    "wrangler": "^4.126.0"
+  }
+}

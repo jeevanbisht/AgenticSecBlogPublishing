@@ -1,0 +1,35 @@
+---
+interface Panel {
+  vendor_documentation: string;
+  public_demonstration: string;
+  independent_validation: string;
+  production_effectiveness: string;
+  methodology_version: string;
+  rationale: string;
+}
+
+interface Props {
+  panel: Panel;
+}
+
+const { panel } = Astro.props;
+const rows = [
+  ["Vendor documentation", panel.vendor_documentation],
+  ["Public demonstration", panel.public_demonstration],
+  ["Independent validation", panel.independent_validation],
+  ["Production effectiveness", panel.production_effectiveness],
+];
+---
+
+<section aria-label="Capability evidence panel">
+  <h4>Capability evidence</h4>
+  <dl class="panel">
+    {rows.map(([label, value]) => (
+      <>
+        <dt>{label}</dt>
+        <dd class:list={{ none: value === "NONE_FOUND" || value === "UNKNOWN" }}>{value}</dd>
+      </>
+    ))}
+  </dl>
+  <p class="meta">{panel.methodology_version}: {panel.rationale}</p>
+</section>

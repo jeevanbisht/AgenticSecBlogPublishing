@@ -1,0 +1,26 @@
+{
+  "required_paths": [
+    ".gitignore",
+    "README.md",
+    "deployment/downstream/bootstrap-layout.json",
+    "publication",
+    "pyproject.toml",
+    "scripts/prepare_site_data.py",
+    "site",
+    "src/agentic_security",
+    "wrangler.jsonc"
+  ],
+  "excluded_paths": [
+    "data",
+    "research",
+    "site/dist",
+    "site/node_modules"
+  ],
+  "production_commands": [
+    "python -m pip install -e .",
+    "cd site && npm ci",
+    "cd site && npm run check",
+    "cd site && npm test",
+    "cd site && npm run build"
+  ]
+}

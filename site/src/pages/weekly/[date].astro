@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import data from "../../data/ledger";
+
+export function getStaticPaths() {
+  return data.weekly.map((pack) => ({ params: { date: pack.date }, props: { pack } }));
+}
+const { pack } = Astro.props;
+---
+
+<BaseLayout title={`Weekly evidence pack ${pack.date} | ASI`} description={`Weekly ledger-derived evidence pack for ${pack.date}.`}>
+  <p class="eyebrow">Human interpretation required</p>
+  <h1>Week ending {pack.date}</h1>
+  <pre>{pack.markdown}</pre>
+</BaseLayout>

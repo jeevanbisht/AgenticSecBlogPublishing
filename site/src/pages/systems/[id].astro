@@ -1,0 +1,112 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import EvidencePanel from "../../components/EvidencePanel.astro";
+import data from "../../data/ledger";
+import type { Change, Conflict } from "../../data/types";
+
+export function getStaticPaths() {
+  return data.systems.map((system) => ({ params: { id: system.id }, props: { system } }));
+}
+
+const { system } = Astro.props;
+const conflicts = system.conflicts as Conflict[];
+const recentChanges = system.recent_changes as Change[];
+---
+
+<BaseLayout title={`${system.name} | ASI`} description={system.description}>
+  <p class="eyebrow">{system.vendor} · {system.category}</p>
+  <h1>{system.name}</h1>
+  <p class="lede">{system.description}</p>
+  <p class="meta">
+    First observed {system.first_observed_at} · Last verified {system.last_verified_at} ·
+    {system.freshness} · {system.methodology_version} · {system.taxonomy_version}
+  </p>
+
+  <h2>Lifecycle</h2>
+  {system.lifecycle.length ? system.lifecycle.map((event) => (
+    <article class="card">
+      <strong>{event.state}</strong> · {event.effective_at}
+      <p class="meta">Evidence {event.evidence_id}</p>
+      {event.conditions.map((condition) => <span class="tag">{condition}</span>)}
+      {event.regions.map((region) => <span class="tag">{region}</span>)}
+    </article>
+  )) : <p>UNKNOWN — no evidence-backed lifecycle event recorded.</p>}
+
+  <h2>Agents</h2>
+  {system.agents.length ? <div class="grid">{system.agents.map((agent) => (
+    <article class="card">
+      <p class="eyebrow">{agent.category}</p><h3>{agent.name}</h3><p>{agent.description}</p>
+      <p class="meta">
+        Capabilities: {agent.capabilities.length ? agent.capabilities.join(", ") : "NONE_FOUND"}
+        · Controls: {agent.controls.length ? agent.controls.join(", ") : "NONE_FOUND"}
+      </p>
+    </article>
+  ))}</div> : <p>UNKNOWN — no named agent is established by current evidence.</p>}
+
+  <h2>Autonomy and control</h2>
+  {system.autonomy ? (
+    <article class="card">
+      <h3>Derived autonomy {system.autonomy.derived_label}</h3>
+      <dl class="panel">
+        <dt>Trigger</dt><dd>{system.autonomy.trigger.value}</dd>
+        <dt>Persistence</dt><dd>{system.autonomy.persistence.value}</dd>
+        <dt>Permission scope</dt><dd>{system.autonomy.permission_scope.value}</dd>
+        <dt>Human gate</dt><dd>{system.autonomy.human_gate.value}</dd>
+      </dl>
+      <p class="meta">Each facet is separately evidence-backed; the A-label is derived.</p>
+    </article>
+  ) : <p>UNKNOWN — autonomy facets have not been established.</p>}
+  {system.controls.map((control) => (
+    <article class="card"><h3>{control.statement}</h3><p>{control.state}</p></article>
+  ))}
+
+  <h2>Architecture</h2>
+  {system.architecture.length ? system.architecture.map((pattern) => (
+    <article class="card"><p>{pattern.statement}</p><span class="tag">{pattern.state}</span></article>
+  )) : <p>UNKNOWN — no architecture assertion is established.</p>}
+
+  <h2>Capabilities</h2>
+  {system.capabilities.length ? system.capabilities.map((capability) => (
+    <article class="card">
+      <h3>{capability.name}</h3>
+      <p>{capability.statement}</p>
+      <span class="tag">{capability.state}</span>
+      {capability.scope.conditions.map((condition) => <span class="tag">{condition}</span>)}
+      <EvidencePanel panel={capability.evidence_panel} />
+      <details>
+        <summary>Assertion support</summary>
+        <p>
+          {capability.support_confidence.value} under {capability.support_confidence.methodology_version}:
+          {capability.support_confidence.rationale}
+        </p>
+      </details>
+    </article>
+  )) : <p>UNKNOWN — no capability assertion is established.</p>}
+
+  <h2>Evidence conflicts</h2>
+  {conflicts.length ? conflicts.map((conflict) => (
+    <article class="card"><strong>{conflict.type}</strong><p>{conflict.rationale}</p></article>
+  )) : <p>No open conflict is recorded for this system.</p>}
+
+  <h2>Recent changes</h2>
+  {recentChanges.length ? recentChanges.map((change) => (
+    <article class="card">
+      <p class="eyebrow">{change.classification}</p>
+      <h3>{change.description}</h3>
+      {change.decision_impacts.map((impact) => <span class="tag impact">{impact}</span>)}
+    </article>
+  )) : <p>NO_MATERIAL_CHANGE is recorded for this profile.</p>}
+
+  <h2>Unknowns</h2>
+  <p>
+    Any evidence-panel row marked UNKNOWN is not a negative capability claim. Any NONE_FOUND row
+    means the current governed corpus contains no qualifying evidence.
+  </p>
+
+  <h2>Sources</h2>
+  {system.sources.length ? <ul>{system.sources.map((source) => (
+    <li>{source.id}: {source.publisher} — {source.name}</li>
+  ))}</ul> : <p>NONE_FOUND</p>}
+
+  <p><a href="/claims-vs-reality/">Compare claims with evidence categories</a></p>
+</BaseLayout>
