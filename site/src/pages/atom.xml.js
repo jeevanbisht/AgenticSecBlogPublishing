@@ -5,7 +5,15 @@ const escapeXml = (value) =>
 
 export function GET(context) {
   const site = context.site.toString().replace(/\/$/, "");
-  const entries = data.changes.map((change) => `
+  const articleEntries = data.articles.map((article) => `
+    <entry>
+      <id>urn:asi:${article.id}</id>
+      <title>${escapeXml(article.title)}</title>
+      <updated>${data.generated_at}</updated>
+      <link href="${site}/articles/${article.id.toLowerCase()}/" />
+      <summary>${escapeXml(article.body.split("\n").find((line) => line.trim()) ?? article.title)}</summary>
+    </entry>`).join("");
+  const changeEntries = data.changes.map((change) => `
     <entry>
       <id>urn:asi:${change.id}</id>
       <title>${escapeXml(change.description)}</title>
@@ -13,6 +21,7 @@ export function GET(context) {
       <link href="${site}/changes/" />
       <summary>${escapeXml(`${change.classification}: ${change.decision_impacts.join(", ")}`)}</summary>
     </entry>`).join("");
+  const entries = `${articleEntries}${changeEntries}`;
   return new Response(`<?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>${site}/</id>

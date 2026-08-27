@@ -6,11 +6,18 @@ export function GET(context) {
     title: "Agentic Security Intelligence",
     description: "Evidence-driven change intelligence for enterprise security agents.",
     site: context.site,
-    items: data.changes.map((change) => ({
-      title: change.description,
-      pubDate: new Date(`${change.date}T00:00:00Z`),
-      description: `${change.classification}: ${change.decision_impacts.join(", ")}`,
-      link: "/changes/",
-    })),
+    items: [
+      ...data.articles.map((article) => ({
+        title: article.title,
+        description: article.body.split("\n").find((line) => line.trim()) ?? article.title,
+        link: `/articles/${article.id.toLowerCase()}/`,
+      })),
+      ...data.changes.map((change) => ({
+        title: change.description,
+        pubDate: new Date(`${change.date}T00:00:00Z`),
+        description: `${change.classification}: ${change.decision_impacts.join(", ")}`,
+        link: "/changes/",
+      })),
+    ],
   });
 }

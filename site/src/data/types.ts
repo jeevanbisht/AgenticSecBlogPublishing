@@ -6,6 +6,12 @@ export type Change = {
   description: string;
 };
 
+export type Article = {
+  id: string;
+  title: string;
+  body: string;
+};
+
 export type Conflict = {
   type: string;
   rationale: string;
@@ -93,6 +99,7 @@ export type LedgerData = {
   systems: SystemProfile[];
   claims: Claim[];
   changes: Change[];
+  articles: Article[];
   daily: { date: string; status: string; markdown: string }[];
   weekly: { date: string; markdown: string }[];
   sources: {
