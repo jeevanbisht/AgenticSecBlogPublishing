@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-08-26T00:00:00+00:00",
+  "generated_at": "2026-08-27T05:07:35.981499Z",
   "methodology_version": "ASI-1.0",
   "taxonomy_version": "ASI-TAXONOMY-1.1",
-  "source_ledger_version": "bootstrap-empty",
+  "source_ledger_version": "sqlite-schema-1",
   "content_count": 0,
   "confirmed_change_count": 0,
   "pending_review_count": 0,
   "files": [
     {
       "path": "data/ledger.json",
-      "sha256": "fb7e8d40da38752cfde475f5374e55458acec88503a0ab79a6097269cc91d24c",
-      "size_bytes": 309
+      "sha256": "27974ac2c51b00e33ee26dd5a72617e679bb9a68bebcfdab2a2e3959a199f84c",
+      "size_bytes": 297
     }
   ]
 }
